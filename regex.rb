@@ -16,7 +16,7 @@ class ListaAfazeres
     end
     
     def reconhecerTags(cadeia)
-        resultado = cadeia.scan(/#\w+/).flatten
+        resultado = cadeia.scan(/(?<!\S)#\w+/).flatten
         @tags = resultado
 
         if @tags.length > 0
@@ -25,12 +25,12 @@ class ListaAfazeres
     end    
 
     def reconhecerHorario(cadeia)
-        resultado = cadeia.scan(/(((a|à)s ?)(((((0?\d)|(1\d)|(2[0-4]))(:| ))\d{1,2}( |(?!.)))|((0?\d(?!.))|(1\d)|(2[0-4])))(hora(s?))?)/).flatten
+        resultado = cadeia.scan(/(((a|à)s ?)(((((0?\d)|(1\d)|(2[0-4]))(:| ))\d{1,2}( |(?!.)))|((0?\d(?!.))|(1\d)|(2[0-4])))( hora(s?))?)/).flatten
 
-        if resultado.length == 0
+        if resultado == nil || resultado.length == 0
             resultado = cadeia.scan(/(((a|à)s ?)?(((((0\d)|(1\d)|(2[0-4]))(:| ))\d{1,2})|((0\d)|(1\d)|(2[0-4])))( hora(s?)))/).flatten
         end
-        if resultado.length == 0
+        if resultado == nil || resultado.length == 0
             resultado = cadeia.scan(/(((a|à)s ?)?(((((0\d)|(1\d)|(2[0-4]))(:| ))\d{1,2})|((0\d)(^\d)|(1\d)(^\d)|(2[0-4])(^\d)))( hora(s?))?)/).flatten
         end
 
